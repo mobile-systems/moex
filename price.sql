@@ -11,16 +11,16 @@ CREATE OR REPLACE FUNCTION sber.price(
 
 AS $BODY$
 	DECLARE
-		neartable varchar := CONCAT('sber.m202402', dr);
+		neartable varchar := CONCAT('m202402', dr);
 		datefrom date := CONCAT(dR, '-', mr, '-', yr);
 	BEGIN
 	RETURN QUERY EXECUTE format('SELECT	h4.datetrade AS datetrade, 
 						h4.price AS price
-				FROM	%I AS h4
-				WHERE	h4.dateid = %I
-					AND h4.stockcode = near
-					AND h4.direction = %I
-				ORDER BY spreadin ASC LIMIT 1', neartable, datefrom, 'BUY');
+				FROM	%I.%I AS h4
+				WHERE	h4.dateid = %L
+					AND h4.stockcode = %L
+					AND h4.direction = %L
+				ORDER BY price ASC LIMIT 1', 'sber', neartable, datefrom, near, 'BUY');
 	END;
 $BODY$;
 
