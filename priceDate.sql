@@ -11,8 +11,7 @@ CREATE OR REPLACE FUNCTION sber.price(
 
 AS $BODY$
 DECLARE
---	neartable varchar := CONCAT('m', LEFT( datefrom::text, 2), SUBSTR(datefrom::text, 4, 2), RIGHT(datefrom::text, 4);
-	neartable varchar := CONCAT('m', LEFT( datefrom::text, 4), SUBSTR(datefrom::text, 6, 2), RIGHT(datefrom::text, 2));
+	neartable varchar := TO_CHAR(datefrom, 'myyyymmdd')
 BEGIN
 RETURN QUERY EXECUTE format('SELECT	h4.datetrade AS datetrade, 
 					h4.price AS price
