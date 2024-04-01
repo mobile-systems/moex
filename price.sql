@@ -11,8 +11,8 @@ CREATE OR REPLACE FUNCTION sber.price(
 
 AS $BODY$
 	DECLARE
-		neartable varchar := CONCAT('m202402', dr);
-		datefrom date := CONCAT(dR, '-', mr, '-', yr);
+		neartable varchar := CONCAT('m', LPAD(yr::varchar, 4, '0'), LPAD(mr::varchar, 2, '0'), LPAD(dr::varchar, 2, '0'));
+		datefrom date := CONCAT(LPAD(dr::varchar, 2, '0'), '-', LPAD(mr::varchar, 2, '0'), '-', LPAD(yr::varchar, 4, '0'));
 	BEGIN
 	RETURN QUERY EXECUTE format('SELECT	h4.datetrade AS datetrade, 
 						h4.price AS price
